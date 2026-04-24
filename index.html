@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DeepBait is a website whose purpose is to inform the general public about AI-powered phishing. The site is targeted towards every demographic and is designed to be easily understood by those who are not tech-savvy.">
+  <meta name="keywords" content="AI phishing, cybersecurity, phishing attacks, deepfake, voice cloning, online safety, phishing awareness">
+  <meta name="author" content="Yanell Ramirez and Jordy Moreno">
+  <title>DeepBait - AI Phishing Awareness</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: black;
+      color: #ccffcc;
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    /* navbar */
+    .navbar {
+      background-color: black !important;
+      border-bottom: 1px solid #00ff41;
+    }
+
+    .navbar-brand {
+      color: #00ff41 !important;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 22px;
+    }
+
+    .nav-link {
+      color: #5a8a5a !important;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+    }
+
+    .nav-link:hover {
+      color: #00ff41 !important;
+    }
+
+    .nav-link.active {
+      color: #00ff41 !important;
+    }
+
+    .start-btn {
+      background-color: #00ff41;
+      color: black;
+      border: none;
+      padding: 8px 18px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* hero section */
+    #hero {
+      background: linear-gradient(to right, black, #010d01, black);
+      padding-top: 70px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid #00ff41;
+    }
+
+    .hero-small-text {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: #00ff41;
+      letter-spacing: 4px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: 42px;
+      color: white;
+      font-weight: 900;
+    }
+
+    h1 span {
+      color: #00ff41;
+    }
+
+    .hero-description {
+      color: #5a8a5a;
+      font-size: 16px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+
+    .cta-quote {
+      border-left: 3px solid #007a1f;
+      padding-left: 12px;
+      color: #5a8a5a;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      margin-bottom: 25px;
+    }
+
+    .main-btn {
+      background-color: #00ff41;
+      color: black;
+      border: none;
+      padding: 12px 28px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .main-btn:hover {
+      background-color: #00c032;
+      color: black;
+    }
+
+    /* image placeholder boxes */
+    .img-box {
+      background-color: #010d01;
+      border: 1px solid rgba(0, 255, 65, 0.3);
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2a5a2a;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      position: relative;
+    }
+
+    /* section styles */
+    .section-normal {
+      background-color: black;
+      padding: 55px 0px;
+      border-bottom: 1px solid rgba(0,255,65,0.2);
+    }
+
+    .section-dark {
+      background-color: #010801;
+      padding: 55px 0px;
+      border-bottom: 1px solid rgba(0,255,65,0.2);
+    }
+
+    .section-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: #00ff41;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+      opacity: 0.7;
+    }
+
+    h2 {
+      font-family: 'Orbitron', monospace;
+      color: white;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+
+    p {
+      color: #5a8a5a;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    /* stat cards */
+    .stat-box {
+      border: 1px solid rgba(0,255,65,0.25);
+      background-color: rgba(0,255,65,0.03);
+      padding: 25px 20px;
+      height: 100%;
+    }
+
+    .stat-box:hover {
+      border-color: #00ff41;
+    }
+
+    .big-number {
+      font-family: 'Orbitron', monospace;
+      font-size: 42px;
+      color: #00ff41;
+      font-weight: 900;
+    }
+
+    .stat-title {
+      color: #ccffcc;
+      font-size: 14px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .stat-desc {
+      color: #5a8a5a;
+      font-size: 13px;
+    }
+
+    /* outline button */
+    .outline-btn {
+      border: 1px solid rgba(0,255,65,0.5);
+      color: #00ff41;
+      background: transparent;
+      padding: 9px 22px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      margin-top: 20px;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .outline-btn:hover {
+      background-color: #00ff41;
+      color: black;
+    }
+
+    /* cta section */
+    #cta-section {
+      background: linear-gradient(to right, black, #010d01, black);
+      padding: 55px 0;
+      border-top: 1px solid rgba(0,255,65,0.2);
+      border-bottom: 1px solid rgba(0,255,65,0.2);
+      text-align: center;
+    }
+
+    #cta-section h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    #cta-section p {
+      margin-bottom: 25px;
+    }
+
+    /* footer */
+    footer {
+      background-color: black;
+      border-top: 1px solid rgba(0,255,65,0.2);
+      padding: 45px 0 20px 0;
+    }
+
+    .footer-logo {
+      font-family: 'Orbitron', monospace;
+      color: #00ff41;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+
+    .footer-small {
+      color: #5a8a5a;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .footer-heading {
+      color: #00ff41;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .footer-links-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links-list li {
+      margin-bottom: 8px;
+    }
+
+    .footer-links-list a {
+      color: #5a8a5a;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .footer-links-list a:hover {
+      color: #00ff41;
+    }
+
+    .footer-bottom-text {
+      border-top: 1px solid rgba(0,255,65,0.15);
+      padding-top: 18px;
+      margin-top: 30px;
+      text-align: center;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      color: #5a8a5a;
+      letter-spacing: 2px;
+      opacity: 0.5;
+    }
+
+    /* matrix canvas */
+    #matrix-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      opacity: 0.04;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .content-wrap {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="matrix-canvas"></canvas>
+
+  <div class="content-wrap">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">DeepBait</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon" style="filter: invert(1) sepia(1) saturate(5) hue-rotate(90deg);"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+            <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="how-it-works.html">How AI Phishing Works</a></li>
+            <li class="nav-item"><a class="nav-link" href="protect-yourself.html">How to Protect Yourself</a></li>
+            <li class="nav-item"><a class="nav-link" href="#footer">Resources</a></li>
+            <li class="nav-item">
+              <a href="protect-yourself.html" class="start-btn ms-2">START</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="hero">
+      <div class="container">
+        <div class="row align-items-center g-4">
+
+          <div class="col-lg-6">
+            <p class="hero-small-text">// CYBER THREAT INTELLIGENCE</p>
+            <h1>AI Is Making Phishing <span>More Dangerous Than Ever</span></h1>
+            <p class="hero-description">DeepBait informs the general public about AI-powered phishing — designed to be easily understood by those who are not tech-savvy.</p>
+            <div class="cta-quote">
+              Every internet user should learn how to recognize and report AI-powered phishing attempts due to their convincing nature and the impact that they have on the internet and its users worldwide.
+            </div>
+            <a href="protect-yourself.html" class="main-btn">LEARN HOW TO STAY SAFE</a>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="img-box">
+              [ Image Placeholder ]
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- WHAT IS AI PHISHING -->
+    <section class="section-normal" id="what-is">
+      <div class="container">
+        <div class="row align-items-center g-4">
+
+          <div class="col-lg-6">
+            <p class="section-tag">// 01 — OVERVIEW</p>
+            <h2>What Is AI-Powered Phishing?</h2>
+            <p>Phishing is a cybercrime where hackers pose as a trustworthy entity to steal sensitive information from the victim. Artificial intelligence has changed phishing attacks. With AI, phishing emails can be personalized and look flawless while also avoiding spam filters. There are no more spelling mistakes or incorrect grammar in phishing emails due to the use of AI.</p>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="img-box">
+              [ Image Placeholder ]
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section-dark" id="stats">
+      <div class="container">
+        <p class="section-tag">// 02 — BY THE NUMBERS</p>
+        <h2>The Scale of the Threat</h2>
+        <div class="row g-4 mt-1">
+
+          <div class="col-md-4">
+            <div class="stat-box">
+              <div class="big-number">202%</div>
+              <div class="stat-title">Increase in phishing emails</div>
+              <div class="stat-desc">in the second half of 2024 alone</div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="stat-box">
+              <div class="big-number">82.6%</div>
+              <div class="stat-title">Of phishing emails use AI</div>
+              <div class="stat-desc">in some form</div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="stat-box">
+              <div class="big-number">40%</div>
+              <div class="stat-title">Faster attack creation</div>
+              <div class="stat-desc">using generative AI tools</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY DANGEROUS -->
+    <section class="section-normal" id="why-dangerous">
+      <div class="container">
+        <div class="row align-items-center g-4">
+
+          <div class="col-lg-6">
+            <p class="section-tag">// 03 — THE THREAT</p>
+            <h2>Why It's More Dangerous Than Ever</h2>
+            <p>AI gives attackers the tools they need that were previously out of reach. Tools like ChatGPT can create messages that appear to be from real people or companies. With voice cloning technology, an individual's voice can be cloned with as little as 3 seconds of audio. Deepfake technology can create videos used to trick individuals into transferring funds or revealing sensitive information.</p>
+            <a href="how-it-works.html" class="outline-btn">SEE HOW IT WORKS →</a>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="img-box">
+              [ Image Placeholder ]
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="cta-section">
+      <div class="container">
+        <h2>Every internet user should learn how to recognize and report AI-powered phishing attempts.</h2>
+        <p>Due to their convincing nature and the impact that they have on the internet and its users worldwide.</p>
+        <a href="protect-yourself.html" class="main-btn">GET STARTED TODAY</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+      <div class="container">
+        <div class="row g-4">
+
+          <div class="col-lg-4">
+            <div class="footer-logo">DeepBait</div>
+            <p class="footer-small">
+              Informing the public about AI-powered phishing.<br>
+              Targeted for every demographic.<br><br>
+              Sources:<br>
+              CISA — cisa.gov<br>
+              FTC — ReportFraud.ftc.gov<br>
+              FBI IC3 — ic3.gov
+            </p>
+          </div>
+
+          <div class="col-sm-4 col-lg-2">
+            <div class="footer-heading">Pages</div>
+            <ul class="footer-links-list">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="how-it-works.html">How AI Phishing Works</a></li>
+              <li><a href="protect-yourself.html">How to Protect Yourself</a></li>
+              <li><a href="#footer">Resources</a></li>
+            </ul>
+          </div>
+
+          <div class="col-sm-4 col-lg-3">
+            <div class="footer-heading">Resources</div>
+            <ul class="footer-links-list">
+              <li><a href="https://www.ic3.gov/annualreport/reports" target="_blank">FBI Internet Crime Report 2025</a></li>
+              <li><a href="https://reportfraud.ftc.gov" target="_blank">ReportFraud.ftc.gov</a></li>
+              <li><a href="https://www.cisa.gov/secure-our-world/recognize-and-report-phishing" target="_blank">CISA Phishing Guide</a></li>
+              <li><a href="https://consumer.ftc.gov/articles/how-recognize-avoid-phishing-scams" target="_blank">FTC Phishing Guide</a></li>
+            </ul>
+          </div>
+
+          <div class="col-sm-4 col-lg-3">
+            <div class="footer-heading">Contact</div>
+            <ul class="footer-links-list">
+              <li><a href="mailto:deepbait@email.com">deepbait@email.com</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="footer-bottom-text">
+          © 2025 DeepBait. All rights reserved.
+        </div>
+
+      </div>
+    </footer>
+
+  </div><!-- end content-wrap -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // matrix rain background
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', function() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    var fontSize = 14;
+    var columns = Math.floor(canvas.width / fontSize);
+    var drops = [];
+
+    for (var i = 0; i < columns; i++) {
+      drops[i] = 1;
+    }
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#00ff41';
+      ctx.font = fontSize + 'px monospace';
+
+      for (var i = 0; i < drops.length; i++) {
+        var text = String.fromCharCode(Math.floor(Math.random() * 96) + 0x30A0);
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 50);
+  </script>
+
+</body>
+</html>
