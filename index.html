@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DeepBait is a website whose purpose is to inform the general public about AI-powered phishing. The site is targeted towards every demographic and is designed to be easily understood by those who are not tech-savvy." />
+  <meta name="keywords" content="AI phishing, cybersecurity, phishing attacks, deepfake, voice cloning, online safety, phishing awareness" />
+  <meta name="author" content="Yanell Ramirez and Jordy Moreno" />
+  <meta property="og:title" content="DeepBait — AI Is Making Phishing More Dangerous Than Ever" />
+  <meta property="og:description" content="Learn how AI-powered phishing works and how to protect yourself." />
+  <meta property="og:type" content="website" />
+  <title>DeepBait — AI Phishing Awareness</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --green: #00ff41;
+      --green-subtle: rgba(0,255,65,0.05);
+      --text-dim: #00cc33;
+      --border: rgba(0,255,65,0.2);
+      --bg: #000000;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: #ccffcc; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+    #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.035; pointer-events: none; z-index: 0; }
+    body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px); pointer-events: none; z-index: 1; }
+    .above { position: relative; z-index: 2; }
+
+    /* NAVBAR */
+    .navbar { background: rgba(0,0,0,0.96) !important; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); padding: 0 2rem; min-height: 64px; }
+    .navbar-brand { font-family: 'Orbitron', monospace; font-size: 1.3rem; font-weight: 900; color: var(--green) !important; text-shadow: 0 0 18px var(--green); letter-spacing: 3px; }
+    .nav-link { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 1px; color: #00cc33 !important; text-transform: uppercase; transition: color 0.2s, text-shadow 0.2s; padding: 0.5rem 1rem !important; }
+    .nav-link:hover { color: var(--green) !important; text-shadow: 0 0 10px var(--green), 0 0 20px rgba(0,255,65,0.4); }
+    .nav-link.active { color: var(--green) !important; text-shadow: 0 0 10px var(--green), 0 0 25px rgba(0,255,65,0.5), 0 0 40px rgba(0,255,65,0.2); border-bottom: 2px solid var(--green); padding-bottom: 2px; }
+    .navbar-toggler { border-color: var(--border); }
+    .navbar-toggler-icon { filter: invert(1) sepia(1) saturate(5) hue-rotate(90deg); }
+
+    /* HERO */
+    #hero { background: linear-gradient(135deg, #000 0%, #010d01 55%, #000 100%); border-bottom: 1px solid var(--border); padding: 80px 0 60px; position: relative; overflow: hidden; }
+    #hero::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,255,65,0.015) 40px, rgba(0,255,65,0.015) 41px), repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(0,255,65,0.015) 40px, rgba(0,255,65,0.015) 41px); pointer-events: none; }
+    .hero-eyebrow { font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; letter-spacing: 5px; color: var(--green); opacity: 0.8; margin-bottom: 1rem; }
+    .hero-title { font-family: 'Orbitron', monospace; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 1.2rem; }
+    .hero-title span { color: var(--green); text-shadow: 0 0 20px var(--green); }
+    .hero-desc { font-size: 1rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 0.8rem; }
+    .hero-cta-text { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-dim); line-height: 1.7; border-left: 2px solid #007a1f; padding-left: 14px; margin-bottom: 2rem; }
+
+    /* SECTIONS */
+    section { border-bottom: 1px solid var(--border); }
+    .section-alt { background: #010801; }
+    .section-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 4px; color: var(--green); opacity: 0.7; margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Orbitron', monospace; font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 700; color: #fff; margin-bottom: 1.2rem; line-height: 1.3; }
+    .section-body { font-size: 0.95rem; color: var(--text-dim); line-height: 1.8; }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--green), transparent); border: none; opacity: 0.5; margin: 0; }
+
+    /* IMAGES */
+    .section-img { width: 100%; height: 220px; object-fit: cover; border: 1px solid var(--border); display: block; }
+
+    /* STAT CARDS */
+    .stat-card { background: var(--green-subtle); border: 1px solid var(--border); padding: 1.8rem 1.5rem; position: relative; height: 100%; transition: border-color 0.2s, box-shadow 0.2s; }
+    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--green), transparent); }
+    .stat-card:hover { border-color: var(--green); box-shadow: 0 0 24px rgba(0,255,65,0.1); }
+    .stat-number { font-family: 'Orbitron', monospace; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: var(--green); text-shadow: 0 0 20px var(--green); line-height: 1; margin-bottom: 0.5rem; }
+    .stat-label { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: #ccffcc; letter-spacing: 1px; margin-bottom: 0.3rem; }
+    .stat-sub { font-size: 0.85rem; color: var(--text-dim); }
+
+    /* BUTTONS */
+    .btn-primary-custom { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; background: var(--green); color: #000; border: none; padding: 14px 32px; clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%); transition: box-shadow 0.2s, transform 0.15s; font-weight: bold; display: inline-block; text-decoration: none; }
+    .btn-primary-custom:hover { box-shadow: 0 0 20px var(--green), 0 0 40px rgba(0,255,65,0.5), 0 0 60px rgba(0,255,65,0.2); transform: translateY(-2px); color: #000; }
+
+    /* CTA */
+    #cta { background: linear-gradient(90deg, #000, #010d01, #000); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; padding: 56px 0; }
+    #cta::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(0,255,65,0.07) 0%, transparent 70%); pointer-events: none; }
+    #cta::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(0,255,65,0.01) 40px, rgba(0,255,65,0.01) 41px); pointer-events: none; }
+    .cta-title { font-family: 'Orbitron', monospace; font-size: clamp(1rem, 2.5vw, 1.3rem); font-weight: 700; color: #fff; margin-bottom: 0.8rem; }
+    .cta-sub { font-size: 1rem; color: var(--text-dim); margin-bottom: 1.8rem; }
+
+    /* FOOTER */
+    footer { background: #000; border-top: 1px solid var(--border); padding: 48px 0 24px; }
+    .footer-brand { font-family: 'Orbitron', monospace; font-size: 1.3rem; font-weight: 900; color: var(--green); text-shadow: 0 0 14px var(--green); letter-spacing: 3px; margin-bottom: 0.8rem; }
+    .footer-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1rem; }
+    .footer-sources { font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; color: var(--text-dim); line-height: 1.9; }
+    .footer-col-title { font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; color: var(--green); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-links { list-style: none; padding: 0; }
+    .footer-links li { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0.6rem; }
+    .footer-links li a { color: #00cc33; text-decoration: none; transition: color 0.2s, text-shadow 0.2s; }
+    .footer-links li a:hover { color: var(--green); text-shadow: 0 0 8px var(--green), 0 0 16px rgba(0,255,65,0.4); }
+    .footer-bottom { border-top: 1px solid rgba(0,255,65,0.3); padding-top: 1.2rem; font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-dim); text-align: center; letter-spacing: 3px; }
+
+    @media (max-width: 768px) { .hero-title { font-size: 1.8rem; } .section-img { height: 200px; } }
+  </style>
+</head>
+<body>
+
+<canvas id="matrix-canvas" aria-hidden="true"></canvas>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg sticky-top above" aria-label="Main navigation">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand" href="index.html">DeepBait</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="how-it-works.html">How AI Phishing Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="protect-yourself.html">How to Protect Yourself</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="hero" class="above">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <p class="hero-eyebrow">// Cyber Threat Intelligence</p>
+        <h1 class="hero-title">AI Is Making Phishing <span>More Dangerous Than Ever</span></h1>
+        <p class="hero-desc">DeepBait informs the general public about AI-powered phishing — designed to be easily understood by those who are not tech-savvy.</p>
+        <p class="hero-cta-text">Every internet user should learn how to recognize and report AI-powered phishing attempts due to their convincing nature and the impact that they have on the internet and its users worldwide.</p>
+        <a href="how-it-works.html" class="btn-primary-custom">LEARN HOW TO STAY SAFE</a>
+      </div>
+      <div class="col-lg-6">
+        <img src="squadup.jpg" alt="AI cybersecurity threat illustration" class="section-img" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<hr class="divider above" />
+
+<!-- WHAT IS AI PHISHING -->
+<section class="above py-5" id="what-is">
+  <div class="container py-3">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <p class="section-label">// 01 — Overview</p>
+        <h2 class="section-title">What Is AI-Powered Phishing?</h2>
+        <p class="section-body">Phishing is a cybercrime where hackers pose as a trustworthy entity to steal sensitive information from the victim. Artificial intelligence has changed phishing attacks. With AI, phishing emails can be personalized and look flawless while also avoiding spam filters. There are no more spelling mistakes or incorrect grammar in phishing emails due to the use of AI.</p>
+      </div>
+      <div class="col-lg-6">
+        <img src="phishing.jpg" alt="AI phishing hook through email illustration" class="section-img" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- STATS -->
+<section class="section-alt above py-5" id="stats" aria-label="Statistics">
+  <div class="container py-3">
+    <p class="section-label">// 02 — By the Numbers</p>
+    <h2 class="section-title">The Scale of the Threat</h2>
+    <div class="row g-4 mt-1">
+      <div class="col-md-4">
+        <article class="stat-card">
+          <div class="stat-number">202%</div>
+          <div class="stat-label">Increase in phishing emails</div>
+          <div class="stat-sub">in the second half of 2024 alone</div>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="stat-card">
+          <div class="stat-number">82.6%</div>
+          <div class="stat-label">Of phishing emails use AI</div>
+          <div class="stat-sub">in some form</div>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="stat-card">
+          <div class="stat-number">40%</div>
+          <div class="stat-label">Faster attack creation</div>
+          <div class="stat-sub">using generative AI tools</div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- WHY DANGEROUS -->
+<section class="above py-5" id="why-dangerous">
+  <div class="container py-3">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <p class="section-label">// 03 — The Threat</p>
+        <h2 class="section-title">Why It's More Dangerous Than Ever</h2>
+        <p class="section-body">AI gives attackers the tools they need that were previously out of reach. Tools like ChatGPT can create messages that appear to be from real people or companies. With voice cloning technology, an individual's voice can be cloned with as little as 3 seconds of audio. Deepfake technology can create videos used to trick individuals into transferring funds or revealing sensitive information.</p>
+      </div>
+      <div class="col-lg-6">
+        <img src="TwoFacedHacker.jpg" alt="Deepfake split face concept" class="section-img" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider above" />
+
+<!-- CTA -->
+<section id="cta" class="above text-center">
+  <div class="container position-relative" style="z-index:2;">
+    <h2 class="cta-title">Every internet user should learn how to recognize and report AI-powered phishing attempts.</h2>
+    <p class="cta-sub">Due to their convincing nature and the impact that they have on the internet and its users worldwide.</p>
+    <a href="protect-yourself.html" class="btn-primary-custom">GET STARTED TODAY</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="above">
+  <div class="container">
+    <div class="row g-5 mb-4">
+
+      <div class="col-lg-4">
+        <div class="footer-brand">DeepBait</div>
+        <p class="footer-desc">Informing the public about AI-powered phishing.<br>Targeted for every demographic.</p>
+        <div class="footer-sources">
+          Sources:<br>
+          CISA — cisa.gov<br>
+          FTC — ReportFraud.ftc.gov<br>
+          FBI IC3 — ic3.gov
+        </div>
+      </div>
+
+      <div class="col-sm-4 col-lg-2">
+        <div class="footer-col-title">Pages</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="how-it-works.html">How AI Phishing Works</a></li>
+          <li><a href="protect-yourself.html">How to Protect Yourself</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-4 col-lg-3">
+        <div class="footer-col-title">Resources</div>
+        <ul class="footer-links">
+          <li><a href="https://www.ic3.gov/annualreport/reports" target="_blank" rel="noopener">FBI Internet Crime Report 2025</a></li>
+          <li><a href="https://reportfraud.ftc.gov" target="_blank" rel="noopener">ReportFraud.ftc.gov</a></li>
+          <li><a href="https://www.cisa.gov/secure-our-world/recognize-and-report-phishing" target="_blank" rel="noopener">CISA Phishing Guide</a></li>
+          <li><a href="https://consumer.ftc.gov/articles/how-recognize-avoid-phishing-scams" target="_blank" rel="noopener">FTC Phishing Guide</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-4 col-lg-3">
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="mailto:yramir111@calstatela.edu">yramir111@calstatela.edu</a></li>
+          <li><a href="mailto:jmoren199@calstatela.edu">jmoren199@calstatela.edu</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="footer-bottom">© 2025 DeepBait. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx = canvas.getContext('2d');
+  function resize() { canvas.width = window.innerWidth; canvas.height = document.body.scrollHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  const fontSize = 14;
+  let cols = Math.floor(canvas.width / fontSize);
+  let drops = Array(cols).fill(1);
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff41';
+    ctx.font = fontSize + 'px Share Tech Mono, monospace';
+    drops.forEach((y, i) => {
+      const char = String.fromCharCode(0x30A0 + Math.random() * 96);
+      ctx.fillText(char, i * fontSize, y * fontSize);
+      if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+  }
+  setInterval(drawMatrix, 50);
+</script>
+</body>
+</html>
