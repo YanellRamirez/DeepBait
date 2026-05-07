@@ -18,7 +18,7 @@
     :root {
       --green: #00ff41;
       --green-subtle: rgba(0,255,65,0.05);
-      --text-dim: #5a8a5a;
+      --text-dim: #00cc33;
       --border: rgba(0,255,65,0.2);
       --bg: #000000;
     }
@@ -32,8 +32,8 @@
     /* NAVBAR */
     .navbar{background:rgba(0,0,0,0.96)!important;border-bottom:1px solid var(--border);backdrop-filter:blur(10px);padding:0 2rem;min-height:64px;}
     .navbar-brand{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:900;color:var(--green)!important;text-shadow:0 0 18px var(--green);letter-spacing:3px;}
-    .nav-link{font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:1px;color:var(--text-dim)!important;text-transform:uppercase;transition:color 0.2s;padding:0.5rem 1rem!important;}
-    .nav-link:hover,.nav-link.active{color:var(--green)!important;text-shadow:0 0 8px var(--green);}
+    .nav-link{font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:1px;color:#00cc33!important;text-transform:uppercase;transition:color 0.2s,text-shadow 0.2s;padding:0.5rem 1rem!important;}
+    .nav-link:hover{color:#00ff41!important;text-shadow:0 0 10px #00ff41,0 0 20px rgba(0,255,65,0.4);}.nav-link.active{color:#00ff41!important;text-shadow:0 0 10px #00ff41,0 0 25px rgba(0,255,65,0.5),0 0 40px rgba(0,255,65,0.2);border-bottom:2px solid #00ff41;padding-bottom:2px;}
     .navbar-toggler{border-color:var(--border);}
     .navbar-toggler-icon{filter:invert(1) sepia(1) saturate(5) hue-rotate(90deg);}
 
@@ -84,14 +84,14 @@
     /* FOOTER */
     footer{background:#000;border-top:1px solid var(--border);padding:48px 0 24px;}
     .footer-brand{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:900;color:var(--green);text-shadow:0 0 14px var(--green);letter-spacing:3px;margin-bottom:0.8rem;}
-    .footer-desc{font-size:0.9rem;color:var(--text-dim);line-height:1.7;margin-bottom:1rem;}
-    .footer-sources{font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--text-dim);line-height:1.9;opacity:0.6;}
+    .footer-desc{font-size:0.95rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem;}
+    .footer-sources{font-family:'Rajdhani',sans-serif;font-size:0.9rem;color:var(--text-dim);line-height:1.9;}
     .footer-col-title{font-family:'Share Tech Mono',monospace;font-size:0.68rem;color:var(--green);letter-spacing:2px;text-transform:uppercase;margin-bottom:1rem;}
     .footer-links{list-style:none;padding:0;}
     .footer-links li{font-size:0.9rem;color:var(--text-dim);margin-bottom:0.6rem;}
-    .footer-links li a{color:var(--text-dim);text-decoration:none;transition:color 0.2s;}
-    .footer-links li a:hover{color:var(--green);}
-    .footer-bottom{border-top:1px solid var(--border);padding-top:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:var(--text-dim);letter-spacing:3px;opacity:0.4;}
+    .footer-links li a{color:#00cc33;text-decoration:none;transition:color 0.2s,text-shadow 0.2s;}
+    .footer-links li a:hover{color:#00ff41;text-shadow:0 0 8px #00ff41,0 0 16px rgba(0,255,65,0.4);}
+    .footer-bottom{border-top:1px solid rgba(0,255,65,0.3);padding-top:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.75rem;color:var(--text-dim);letter-spacing:3px;}
 
     @media(max-width:768px){.page-title{font-size:1.8rem;}.img-placeholder{aspect-ratio:16/9;}}
   </style>
@@ -249,7 +249,7 @@
   <div class="container position-relative" style="z-index:2;">
     <h2 class="cta-title">Now that you know how it works — learn how to protect yourself.</h2>
     <p class="cta-sub">Every internet user should learn how to recognize and report AI-powered phishing attempts.</p>
-    <p style="display:inline-block;background-color:#00ff41;color:#000;padding:14px 32px;font-family:'Share Tech Mono',monospace;font-size:0.72rem;font-weight:bold;letter-spacing:2px;cursor:default;">HOW TO PROTECT YOURSELF →</p>
+    <a href="protect-yourself.html" style="display:inline-block;background-color:#00ff41;color:#000;padding:14px 32px;font-family:'Share Tech Mono',monospace;font-size:0.72rem;font-weight:bold;letter-spacing:2px;text-decoration:none;">HOW TO PROTECT YOURSELF →</a>
   </div>
 </section>
 
@@ -267,8 +267,7 @@
         <ul class="footer-links">
           <li><a href="index.html">Home</a></li>
           <li><span style="color:#00ff41;font-size:0.9rem;cursor:default;">How AI Phishing Works</span></li>
-          <li><a href="protect-yourself.html" style="color:#5a8a5a;text-decoration:none;">How to Protect Yourself</a></li>
-          <li><span style="color:#5a8a5a;font-size:0.9rem;cursor:default;">Resources</span></li>
+          <li><a href="protect-yourself.html" style="color:#00cc33;text-decoration:none;">How to Protect Yourself</a></li>
         </ul>
       </div>
       <div class="col-sm-4 col-lg-3">
